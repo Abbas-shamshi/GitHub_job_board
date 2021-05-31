@@ -18,6 +18,9 @@ const useStyles = makeStyles({
     },
     customToolTip: {
         fontSize: 18
+    },
+    cardContent: {
+        marginTop: 10
     }
 });
 
@@ -27,10 +30,11 @@ const JobCard = (props) => {
     return <>
         <Card className={classes.cardRoot}>
             <CardActionArea>
+                <div className='imgContainer'>
+                    <img className='companyLogo' src={image1} />
+                </div>
                 <CardContent className={classes.cardContent}>
-                    <div className='imgContainer'>
-                        <img className='companyLogo' src={image1} />
-                    </div>
+
                     <Typography variant='body2' color='textSecondary' component='p'>
                         1w ago | {type}
                     </Typography>
@@ -45,7 +49,7 @@ const JobCard = (props) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Typography color='primary' variant='subtitle1' component='p'>
+                    <Typography className="companyLocation" pl={2} color='primary' variant='subtitle1' component='p'>
                         {location}
                     </Typography>
                 </CardActions>

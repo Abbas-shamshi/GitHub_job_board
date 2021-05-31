@@ -52,9 +52,7 @@ const Filter = () => {
                         </Grid>
                         <Grid container md={4} sm={6} xs={4} alignItems="center" justify="center">
                             <Hidden xsDown>
-
                                 <Grid item xs={6} >
-
                                     <FormControlLabel
                                         control={
                                             <Checkbox
@@ -69,13 +67,11 @@ const Filter = () => {
                                         label={<Typography variant="h7" style={{ color: 'black', fontWeight: "bold" }}>Full Time Only</Typography>}
                                     />
                                 </Grid>
-
                             </Hidden>
-
                             <Grid item sm={4} xs={8}>
                                 <Button variant="contained" color="primary">
                                     Search
-                                    </Button>
+                                </Button>
                             </Grid>
                         </Grid>
                     </Grid>
