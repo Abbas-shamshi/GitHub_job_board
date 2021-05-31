@@ -20,7 +20,6 @@ class Dashboard extends Component {
     }
     componentDidMount() {
         // Fetch Api Data 
-        this.getJobData();
 
         // Get User's Location
         navigator.geolocation.getCurrentPosition((position) => {
@@ -31,11 +30,13 @@ class Dashboard extends Component {
                 }
             });
             console.log(this.state.location);
+            this.getJobData();
 
         });
     }
     getJobData = () => {
-        axios.get(`https://cors-heroku-as.herokuapp.com/https://jobs.github.com/positions.json?lat=37.3229978&long=-122.0321823&page=${this.state.pageNo}`)
+        console.log(`Fetching : https://cors-heroku-as.herokuapp.com/https://jobs.github.com/positions.json?lat=${this.state.location.latitude}&long=${this.state.location.longitude}&page=${this.state.pageNo}`)
+        axios.get(`https://cors-heroku-as.herokuapp.com/https://jobs.github.com/positions.json?lat=${this.state.location.latitude}&long=${this.state.location.longitude}&page=${this.state.pageNo}`)
             .then((response) => {
                 // handle success
                 this.setState({
@@ -58,11 +59,30 @@ class Dashboard extends Component {
         }, () => this.getJobData())
 
     }
+    searchJobs = (values) => {
+        console.log(`Fetching : https://cors-heroku-as.herokuapp.com/https://jobs.github.com/positions.json?description=${values.descriptionData}&full_time=${values.jobType}&location=${values.locationData}&page=${this.state.pageNo}`)
+        axios.get(`https://cors-heroku-as.herokuapp.com/https://jobs.github.com/positions.json?description=${values.descriptionData}&full_time=${values.jobType}&location=${values.locationData}&page=${this.state.pageNo}`)
+            .then((response) => {
+                // handle success
+                this.setState({
+                    data: response.data
+                })
+                console.log(this.state.data)
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .then(function () {
+                // always executed
+            });
+        console.log(values)
+    }
     render() {
         return (
             <>
                 <Header />
-                <Filter />
+                <Filter onFilterValues={this.searchJobs} />
                 <Container maxWidth="lg" className="cardContainer">
                     <Grid container spacing={5} justify="center" >
                         {
