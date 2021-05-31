@@ -1,9 +1,142 @@
-.headerContainer {
-    padding: 10px 0 20px 0;
-    background-color: rebeccapurple;
-    border-radius: 0 0 0 70px;
+:root {
+  --main-bg-color: #f5f6f8;
+  --main-color: #5865e0;
+  --secondary-bg-color: #ffffff;
+
+  --dark-main-bg-color: #131822;
+  --dark-main-color: #5865e0;
+  --dark-secondary-bg-color: #19212d;
 }
 
-.logo, .icon {
-    color: white;
+body {
+  background-color: var(--main-bg-color);
+}
+
+.headerContainer {
+  padding: 10px 0 20px 0;
+  background-color: var(--main-color);
+  border-radius: 0 0 0 70px;
+}
+
+.logo,
+.icon {
+  color: var(--secondary-bg-color);
+}
+
+.imgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: #4b88a2;
+  left: 20px;
+  top: -40px;
+  /* margin-top: -10px; */
+  width: 50px;
+  height: 50px;
+  border-radius: 9px;
+}
+
+.companyLogo {
+  width: 70%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.filterIcon {
+  color: var(--main-color);
+}
+
+.headerFilter {
+  background-color: var(--secondary-bg-color);
+  border-radius: 10px;
+  padding: 15px 0;
+}
+
+.filterContainer {
+  margin-top: -27px;
+}
+
+.cardContainer {
+  margin-top: 30px;
+}
+.companyLocation {
+  padding-left: 8px;
+}
+
+.jobHeaderCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.jobHeaderName {
+  padding-left: 40px;
+  flex-grow: 2;
+}
+.jobHeaderButton {
+  color: var(--secondary-bg-color);
+  margin: 0 15px;
+  padding: 10px;
+  background-color: var(--main-color);
+}
+.jobHeaderImageCont {
+  width: 100px;
+  height: 100px;
+  background-color: #4b88a2;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+/* Job Details Component  */
+.JobDetailsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.jobDetailsButton {
+  color: var(--secondary-bg-color);
+  margin: 0 15px;
+  padding: 10px;
+  background-color: var(--main-color);
+}
+a {
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .headerContainer {
+    border-radius: 0;
+  }
+  .jobHeaderCard {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .jobHeaderName {
+    text-align: center;
+    padding: 15px 0;
+  }
+  .jobHeaderButton {
+    padding: 10px;
+    margin: 15px 0;
+  }
+  .jobHeaderImageCont {
+    margin-top: -25px;
+  }
+  .jobHeaderImage {
+    width: 50px;
+    border-radius: 10px;
+  }
+
+  /* Job Details Component  */
+  .JobDetailsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+  .jobDetailsButton {
+    padding: 10px 0;
+    margin: 10px 0;
+    width: 100%;
+  }
 }
