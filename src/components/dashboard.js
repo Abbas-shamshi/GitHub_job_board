@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import './style.css';
 import Header from './header';
 import JobCard from './card';
+import JobDetails from './jobDetail';
 import { Container, Grid, Button } from '@material-ui/core';
 import Filter from './filter';
 import axios from 'axios'
+import { Link } from "react-router-dom";
+
 
 class Dashboard extends Component {
     state = {
@@ -54,7 +57,6 @@ class Dashboard extends Component {
             pageNo: this.state.pageNo + 1
         }, () => this.getJobData())
 
-
     }
     render() {
         return (
@@ -66,15 +68,21 @@ class Dashboard extends Component {
                         {
                             this.state.data.map((d) => {
                                 return (
+
                                     <Grid item lg={4} md={6} sm={6} xs={12} >
-                                        <JobCard data={d} />
+                                        <Link to={{
+                                            pathname: "/details",
+                                            state: {
+                                                data: d
+                                            }
+                                        }} style={{ textDecoration: 'none', color: "inherit" }}>
+                                            <JobCard data={d} />
+                                        </Link>
                                     </Grid>
                                 )
                             })
                         }
-
                     </Grid>
-
                     {this.state.data.length / 50 == 0 && <Button variant="contained" color="primary" onClick={this.loadMore}>
                         Load More
                     </Button>
