@@ -27,8 +27,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
   background-color: #4b88a2;
+}
+.imageLogo {
+  position: absolute;
   left: 20px;
   top: -40px;
   /* margin-top: -10px; */
@@ -36,7 +38,6 @@ body {
   height: 50px;
   border-radius: 9px;
 }
-
 .companyLogo {
   width: 70%;
   border-radius: 10px;
@@ -82,9 +83,11 @@ body {
 .jobHeaderImageCont {
   width: 100px;
   height: 100px;
-  background-color: #4b88a2;
   overflow: hidden;
   border-radius: 5px;
+}
+.jobHeaderImageCont img {
+  width: 100%;
 }
 
 /* Job Details Component  */
@@ -135,7 +138,7 @@ a {
     width: 100%;
   }
   .jobDetailsButton {
-    padding: 10px 0;
+    padding: 10px;
     margin: 10px 0;
     width: 100%;
   }

@@ -4,41 +4,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
 import './style.css';
 
-class Header extends Component {
-    handleChange = (event) => {
-        console.log("Clicked", event.target.checked)    //returns true and false
-    };
-    render() {
-        return <>
-            <Container maxWidth="xl" className="headerContainer">
-                <Container maxWidth="lg" className="headeritems">
-                    <Grid container className="headerContainer" alignItems="center" spacing={1} justify="space-between" >
-                        <Grid item className="logo">
-                            <Typography variant="h5">devJobs</Typography>
-                        </Grid>
-                        <Grid item className="button">
-                            <Grid component="label" container alignItems="center" spacing={1}>
-                                <Grid item>
-                                    <FontAwesomeIcon className="icon" icon={faSun} />
-                                </Grid>
-                                <Grid item>
-                                    <Switch
-                                        color="default"
-                                        onChange={this.handleChange}
-                                        inputProps={{ 'aria-label': 'primary checkbox' }} />
-                                </Grid>
-                                <Grid item>
-                                    <FontAwesomeIcon className="icon" icon={faMoon} />
+const Header = (props) => {
 
-                                </Grid>
+    return <>
+        <Container maxWidth="xl" className="headerContainer">
+            <Container maxWidth="lg" className="headeritems">
+                <Grid container className="headerContainer" alignItems="center" spacing={1} justify="space-between" >
+                    <Grid item className="logo">
+                        <Typography variant="h5">devJobs</Typography>
+                    </Grid>
+                    <Grid item className="button">
+                        <Grid component="label" container alignItems="center" spacing={1}>
+                            <Grid item>
+                                <FontAwesomeIcon className="icon" icon={faSun} />
+                            </Grid>
+                            <Grid item>
+                                <Switch
+                                    color="default"
+                                    onChange={props.handleChange}
+                                    inputProps={{ 'aria-label': 'primary checkbox' }} />
+                            </Grid>
+                            <Grid item>
+                                <FontAwesomeIcon className="icon" icon={faMoon} />
+
                             </Grid>
                         </Grid>
                     </Grid>
-                </Container>
+                </Grid>
             </Container>
-        </>
-
-    }
+        </Container>
+    </>
 }
 
 export default Header;

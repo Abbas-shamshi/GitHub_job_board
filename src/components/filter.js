@@ -34,7 +34,7 @@ const Filter = (props) => {
     const onClick = () => {
         let values = { descriptionData, locationData, jobType }
         props.onFilterValues(values);
-        console.log("Clicked");
+        console.log(props);
     };
     return (
         <Fragment>
@@ -87,7 +87,6 @@ const Filter = (props) => {
                                                     color: "#3f51b5",
                                                 }}
                                                 onChange={onJobTypeChange}
-
                                             />
                                         }
                                         label={<Typography variant="h7" style={{ color: 'black', fontWeight: "bold" }}>Full Time Only</Typography>}

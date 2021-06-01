@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import './style.css';
 import Header from './header';
 import JobCard from './card';
-import JobDetails from './jobDetail';
 import { Container, Grid, Button, Typography, Box, Paper } from '@material-ui/core';
-import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import Filter from './filter';
 import axios from 'axios'
 import { Link } from "react-router-dom";
@@ -17,7 +17,8 @@ class Dashboard extends Component {
             latitude: 0,
             longitude: 0
         },
-        pageNo: 1
+        pageNo: 1,
+        darkState: false
     }
     componentDidMount() {
 
@@ -31,8 +32,8 @@ class Dashboard extends Component {
             });
             console.log(this.state.location);
             this.getJobData();
-
         });
+
     }
     getJobData = () => {
         console.log(`Fetching : https://cors-heroku-as.herokuapp.com/https://jobs.github.com/positions.json?lat=${this.state.location.latitude}&long=${this.state.location.longitude}&page=${this.state.pageNo}`)
@@ -79,47 +80,65 @@ class Dashboard extends Component {
         console.log(values)
     }
 
-    render() {
-        return (
-            <>
-                <Paper>
+    handleChange = (event) => {
+        console.log("Clicked", event.target.checked)    //returns true and false
+        this.setState({
+            darkState: event.target.checked
+        })
 
-                    <Header />
-                    <Filter onFilterValues={this.searchJobs} />
-                    <Container maxWidth="lg" className="cardContainer">
-                        <Grid container spacing={5} justify="center" >
-                            {this.state.data.length == 0 &&
-                                <Typography variant="h5" >
-                                    <Box fontWeight={700} m={1}>
-                                        No Jobs Found
-                                </Box>
-                                </Typography>
+    };
+    render() {
+        const palletType = this.state.darkState ? "dark" : "light";
+        const darkTheme = createMuiTheme({
+            palette: {
+                type: palletType,
+            }
+        });
+        return (
+
+            <>
+                <ThemeProvider theme={darkTheme}>
+                    <Paper>
+                        <Header handleChange={this.handleChange} />
+                        <Filter onFilterValues={this.searchJobs} />
+                        <Container maxWidth="lg" className="cardContainer">
+                            <Grid container spacing={5} justify="center" >
+                                {this.state.data.length == 0 &&
+                                    <Typography variant="h5" >
+                                        <Box fontWeight={700} m={1}>
+                                            No Jobs Found
+                                        </Box>
+                                    </Typography>
+                                }
+                                {
+                                    this.state.data.map((d) => {
+                                        return (
+                                            <Grid item lg={4} md={6} sm={6} xs={12} >
+                                                <Link to={{
+                                                    pathname: "/details",
+                                                    state: {
+                                                        data: d
+                                                    }
+                                                }} style={{ textDecoration: 'none', color: "inherit" }}>
+                                                    <JobCard data={d} />
+                                                </Link>
+                                            </Grid>
+                                        )
+                                    })
+                                }
+                            </Grid>
+                            {this.state.data.length / 50 == 1 &&
+                                <Button variant="contained" color="primary" onClick={this.loadMore}>
+                                    Load More
+                                </Button>
                             }
-                            {
-                                this.state.data.map((d) => {
-                                    return (
-                                        <Grid item lg={4} md={6} sm={6} xs={12} >
-                                            <Link to={{
-                                                pathname: "/details",
-                                                state: {
-                                                    data: d
-                                                }
-                                            }} style={{ textDecoration: 'none', color: "inherit" }}>
-                                                <JobCard data={d} />
-                                            </Link>
-                                        </Grid>
-                                    )
-                                })
-                            }
-                        </Grid>
-                        {this.state.data.length / 50 == 1 && <Button variant="contained" color="primary" onClick={this.loadMore}>
-                            Load More
-                    </Button>
-                        }
-                    </Container>
-                </Paper>
+                        </Container>
+                    </Paper>
+                </ThemeProvider>
             </>
         )
+
     }
+
 }
 export default Dashboard;
