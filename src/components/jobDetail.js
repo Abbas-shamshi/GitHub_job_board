@@ -5,20 +5,10 @@ import Header from './header';
 import { Redirect } from "react-router-dom";
 import './style.css';
 
-const useStyles = makeStyles({
-    cardRoot: {
-        overflow: "visible",     //To make Logo Visible outside of card
-        borderRadius: 5,
-        marginTop: -15
-    },
-    cardDetails: {
-        marginTop: 24,
-        padding: 15
-    }
-});
+
 
 const JobDetails = (props) => {
-    const classes = useStyles();
+
     var redirect;
 
     if (props.location.state) {
@@ -30,13 +20,48 @@ const JobDetails = (props) => {
     }
     console.log(redirect)
 
+    // Apply Theme
+    const [darkState, setDarkState] = useState(false);
+    let cardBgColor = darkState ? "#19212d" : "#ffffff";
+    let paperBgColor = darkState ? "#131822" : "#f5f6f8";
+    const useStyles = makeStyles({
+        cardRoot: {
+            overflow: "visible",     //To make Logo Visible outside of card
+            borderRadius: 5,
+            marginTop: -15,
+
+        },
+        cardColor: {
+            backgroundColor: cardBgColor,
+        },
+        cardDetails: {
+            marginTop: 24,
+            padding: 15
+        },
+        cardColor2: {
+            backgroundColor: '#5865e0'
+        },
+        paperContainer: {
+            backgroundColor: paperBgColor
+        }
+    });
+    const palletType = darkState ? "dark" : "light";
+    const darkTheme = createMuiTheme({
+        palette: {
+            type: palletType,
+        }
+    });
+    const handleThemeChange = (event) => {
+        setDarkState(event.target.checked);
+    };
+    const classes = useStyles();
     return <>
         {redirect ? <Redirect to="/" /> : <></>}
-        <ThemeProvider>
-            <Paper>
-                <Header />
+        <ThemeProvider theme={darkTheme}>
+            <Paper className={classes.paperContainer}>
+                <Header handleChange={handleThemeChange} />
                 <Container maxWidth="md">
-                    <Card className={classes.cardRoot}>
+                    <Card className={`${classes.cardColor} ${classes.cardRoot}`}>
                         <div className="jobHeaderCard">
                             <div className='imgContainer jobHeaderImageCont'>
                                 <img className='jobHeaderImage' src={data.company_logo} />
@@ -64,7 +89,7 @@ const JobDetails = (props) => {
                             </a>
                         </div>
                     </Card>
-                    <Card className={classes.cardDetails}>
+                    <Card className={`${classes.cardColor} ${classes.cardDetails}`}>
                         <div className="JobDetailsHeader">
                             <div className="JobDetailsHeaderInfo">
                                 <Typography variant="subtitle1" >
@@ -95,7 +120,7 @@ const JobDetails = (props) => {
                         </div>
                         <div dangerouslySetInnerHTML={{ __html: data.description }} />
                     </Card>
-                    <Card className={classes.cardDetails}>
+                    <Card className={`${classes.cardColor2} ${classes.cardDetails}`}>
                         <div>
                             <Typography variant="h6" >
                                 <Box m={1}>
@@ -112,7 +137,7 @@ const JobDetails = (props) => {
                             </Typography>
                         </div>
                     </Card>
-                    <Card className={classes.cardDetails}>
+                    <Card className={`${classes.cardColor} ${classes.cardDetails}`}>
                         <div className="JobDetailsHeader">
                             <div className="JobDetailsHeaderInfo">
                                 <Hidden xsDown>
