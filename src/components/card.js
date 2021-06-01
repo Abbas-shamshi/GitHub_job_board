@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, useState } from 'react';
 import { Card, CardActionArea, CardContent, CardActions, Typography, CardMedia, Container, Tooltip } from '@material-ui/core';
 import { ThemeProvider, muiThemeable, useTheme } from '@material-ui/styles';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
@@ -9,19 +9,11 @@ import './style.css';
 
 
 const JobCard = (props) => {
-
-    /* const theme = createMuiTheme({
-        palette: {
-            primary: {
-                // Purple and green play nicely together.
-                main: '#ff4400',
-            },
-            secondary: {
-                // This is green.A700 as hex.
-                main: '#11cb5f',
-            },
-        },
-    }); */
+    const [darkState, setDarkState] = useState(false);
+    // setDarkState(props.darkMode);
+    console.log(props.darkMode)
+    let cardBgColor = props.darkMode ? "#19212d" : "#ffffff";
+    // let paperBgColor = darkState ? "#131822" : "#f5f6f8";
 
     const useStyles = makeStyles({
         cardRoot: {
@@ -29,7 +21,7 @@ const JobCard = (props) => {
             overflow: "visible",     //To make Logo Visible outside of card
             padding: 15,
             borderRadius: 5,
-            // backgroundColor: props.muiTheme.palette.primary1Color,
+            backgroundColor: cardBgColor,
             // color: theme.palette.primary.contrastText
         },
         image: {

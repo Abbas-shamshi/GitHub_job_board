@@ -42,7 +42,7 @@ const JobDetails = (props) => {
             backgroundColor: '#5865e0'
         },
         paperContainer: {
-            backgroundColor: paperBgColor
+            // backgroundColor: paperBgColor
         }
     });
     const palletType = darkState ? "dark" : "light";

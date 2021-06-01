@@ -21,7 +21,7 @@ class Dashboard extends Component {
         darkState: false
     }
     componentDidMount() {
-
+        console.log(this.props)
         // Get User's Location
         navigator.geolocation.getCurrentPosition((position) => {
             this.setState({
@@ -117,10 +117,10 @@ class Dashboard extends Component {
                                                 <Link to={{
                                                     pathname: "/details",
                                                     state: {
-                                                        data: d
+                                                        data: d,
                                                     }
                                                 }} style={{ textDecoration: 'none', color: "inherit" }}>
-                                                    <JobCard data={d} />
+                                                    <JobCard data={d} darkMode={this.state.darkState} />
                                                 </Link>
                                             </Grid>
                                         )
