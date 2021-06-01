@@ -3,7 +3,8 @@ import './style.css';
 import Header from './header';
 import JobCard from './card';
 import JobDetails from './jobDetail';
-import { Container, Grid, Button } from '@material-ui/core';
+import { Container, Grid, Button, Typography, Box, Paper } from '@material-ui/core';
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import Filter from './filter';
 import axios from 'axios'
 import { Link } from "react-router-dom";
@@ -19,7 +20,6 @@ class Dashboard extends Component {
         pageNo: 1
     }
     componentDidMount() {
-        // Fetch Api Data 
 
         // Get User's Location
         navigator.geolocation.getCurrentPosition((position) => {
@@ -78,36 +78,46 @@ class Dashboard extends Component {
             });
         console.log(values)
     }
+
     render() {
         return (
             <>
-                <Header />
-                <Filter onFilterValues={this.searchJobs} />
-                <Container maxWidth="lg" className="cardContainer">
-                    <Grid container spacing={5} justify="center" >
-                        {
-                            this.state.data.map((d) => {
-                                return (
+                <Paper>
 
-                                    <Grid item lg={4} md={6} sm={6} xs={12} >
-                                        <Link to={{
-                                            pathname: "/details",
-                                            state: {
-                                                data: d
-                                            }
-                                        }} style={{ textDecoration: 'none', color: "inherit" }}>
-                                            <JobCard data={d} />
-                                        </Link>
-                                    </Grid>
-                                )
-                            })
-                        }
-                    </Grid>
-                    {this.state.data.length / 50 == 0 && <Button variant="contained" color="primary" onClick={this.loadMore}>
-                        Load More
+                    <Header />
+                    <Filter onFilterValues={this.searchJobs} />
+                    <Container maxWidth="lg" className="cardContainer">
+                        <Grid container spacing={5} justify="center" >
+                            {this.state.data.length == 0 &&
+                                <Typography variant="h5" >
+                                    <Box fontWeight={700} m={1}>
+                                        No Jobs Found
+                                </Box>
+                                </Typography>
+                            }
+                            {
+                                this.state.data.map((d) => {
+                                    return (
+                                        <Grid item lg={4} md={6} sm={6} xs={12} >
+                                            <Link to={{
+                                                pathname: "/details",
+                                                state: {
+                                                    data: d
+                                                }
+                                            }} style={{ textDecoration: 'none', color: "inherit" }}>
+                                                <JobCard data={d} />
+                                            </Link>
+                                        </Grid>
+                                    )
+                                })
+                            }
+                        </Grid>
+                        {this.state.data.length / 50 == 1 && <Button variant="contained" color="primary" onClick={this.loadMore}>
+                            Load More
                     </Button>
-                    }
-                </Container>
+                        }
+                    </Container>
+                </Paper>
             </>
         )
     }

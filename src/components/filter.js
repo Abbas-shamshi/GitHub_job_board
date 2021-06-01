@@ -8,6 +8,7 @@ import './style.css';
 const useStyles = makeStyles((theme) => ({
     inputRoot: {
         color: '#3f51b5',
+
     },
 
 }));
