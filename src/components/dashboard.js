@@ -31,18 +31,26 @@ class Dashboard extends Component {
                 }
             });
             console.log(this.state.location);
-            this.getJobData();
         });
+        this.getJobData();
+
 
     }
     getJobData = () => {
-        console.log(`Fetching : https://cors-heroku-as.herokuapp.com/https://jobs.github.com/positions.json?lat=${this.state.location.latitude}&long=${this.state.location.longitude}&page=${this.state.pageNo}`)
-        axios.get(`https://cors-heroku-as.herokuapp.com/https://jobs.github.com/positions.json?lat=${this.state.location.latitude}&long=${this.state.location.longitude}&page=${this.state.pageNo}`)
+        let baseUrl = `https://jobs.github.com/positions.json?&page=${this.state.pageNo}`;
+        let corsUrl = 'https://cors-heroku-as.herokuapp.com/';
+        let usrLoc = `lat=${this.state.location.latitude}&long=${this.state.location.longitude}`
+        let url = `${corsUrl}${baseUrl}`
+
+        console.log(`Fetching : ${url}`)
+        axios.get(`${url}`)
             .then((response) => {
                 // handle success
+                // var joined = this.state.myArray.concat(response.data);
                 this.setState({
-                    data: response.data
+                    data: [...this.state.data, ...response.data]
                 })
+
                 console.log(this.state.data)
             })
             .catch(function (error) {
@@ -62,7 +70,7 @@ class Dashboard extends Component {
     }
     searchJobs = (values) => {
         console.log(`Fetching : https://cors-heroku-as.herokuapp.com/https://jobs.github.com/positions.json?description=${values.descriptionData}&full_time=${values.jobType}&location=${values.locationData}&page=${this.state.pageNo}`)
-        axios.get(`https://cors-heroku-as.herokuapp.com/https://jobs.github.com/positions.json?description=${values.descriptionData}&full_time=${values.jobType}&location=${values.locationData}&page=${this.state.pageNo}`)
+        axios.get(`https://cors-heroku-as.herokuapp.com/https://jobs.github.com/positions.json?description=${values.descriptionData}&full_time=${values.jobType}&location=${values.locationData}&page=1`)
             .then((response) => {
                 // handle success
                 this.setState({
@@ -101,7 +109,7 @@ class Dashboard extends Component {
                     <Paper>
                         <Header handleChange={this.handleChange} />
                         <Filter onFilterValues={this.searchJobs} />
-                        <Container maxWidth="lg" className="cardContainer">
+                        <Container maxWidth="lg" className="cardContainer" >
                             <Grid container spacing={5} justify="center" >
                                 {this.state.data.length == 0 &&
                                     <Typography variant="h5" >
@@ -118,6 +126,7 @@ class Dashboard extends Component {
                                                     pathname: "/details",
                                                     state: {
                                                         data: d,
+                                                        darkState: this.state.darkState
                                                     }
                                                 }} style={{ textDecoration: 'none', color: "inherit" }}>
                                                     <JobCard data={d} darkMode={this.state.darkState} />
@@ -127,11 +136,18 @@ class Dashboard extends Component {
                                     })
                                 }
                             </Grid>
-                            {this.state.data.length / 50 == 1 &&
-                                <Button variant="contained" color="primary" onClick={this.loadMore}>
-                                    Load More
-                                </Button>
-                            }
+                            <Grid container spacing={5} >
+                                <Grid item xs={12} >
+                                    <Box className="buttonPos">
+                                        {this.state.data.length / 50 == 1 &&
+                                            <Button variant="contained" color="primary" onClick={this.loadMore} >
+                                                Load More
+                                        </Button>
+                                        }
+                                    </Box>
+                                </Grid>
+                            </Grid>
+
                         </Container>
                     </Paper>
                 </ThemeProvider>
