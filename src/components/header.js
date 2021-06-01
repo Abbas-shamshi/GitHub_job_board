@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Grid, Switch, Container, Typography } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
 import './style.css';
 
 const Header = (props) => {
@@ -10,9 +11,13 @@ const Header = (props) => {
         <Container maxWidth="xl" className="headerContainer">
             <Container maxWidth="lg" className="headeritems">
                 <Grid container className="headerContainer" alignItems="center" spacing={1} justify="space-between" >
-                    <Grid item className="logo">
-                        <Typography variant="h5">devJobs</Typography>
-                    </Grid>
+                    <Link to={{
+                        pathname: "/",
+                    }} style={{ textDecoration: 'none', color: "inherit" }}>
+                        <Grid item className="logo">
+                            <Typography variant="h5">devJobs</Typography>
+                        </Grid>
+                    </Link>
                     <Grid item className="button">
                         <Grid component="label" container alignItems="center" spacing={1}>
                             <Grid item>
