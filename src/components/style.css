@@ -27,7 +27,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #4b88a2;
+  /* background-color: #4b88a2; */
 }
 .imageLogo {
   position: absolute;
@@ -64,7 +64,9 @@ body {
 .companyLocation {
   padding-left: 8px;
 }
-
+.buttonPos {
+  text-align: center;
+}
 .jobHeaderCard {
   display: flex;
   justify-content: space-between;

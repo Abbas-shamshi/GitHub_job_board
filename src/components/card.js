@@ -9,9 +9,13 @@ import './style.css';
 
 
 const JobCard = (props) => {
+
+    // const colors = ['#8d47ff', '#235cdf', '#daa278', '#68ab97', '#bb4643', '#e7de63'];
+    const [color, setcolor] = useState(['#90E39A', '#3F7D20', '#DDF093', '#638475', '#CE4760', '#3B413C']);
+
     const [darkState, setDarkState] = useState(false);
     // setDarkState(props.darkMode);
-    console.log(props.darkMode)
+    // console.log(props.darkMode)
     let cardBgColor = props.darkMode ? "#19212d" : "#ffffff";
     // let paperBgColor = darkState ? "#131822" : "#f5f6f8";
 
@@ -40,7 +44,7 @@ const JobCard = (props) => {
     return <>
         <Card className={classes.cardRoot}>
             <CardActionArea>
-                <div className='imgContainer imageLogo'>
+                <div className='imgContainer imageLogo' style={{ backgroundColor: color[Math.floor(Math.random() * 5)] }}>
                     <img className='companyLogo' src={company_logo} />
                 </div>
                 <CardContent className={classes.cardContent}>

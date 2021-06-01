@@ -6,13 +6,16 @@ import { Link } from 'react-router-dom';
 import './style.css';
 
 const Header = (props) => {
-
+    console.log(props.theme);
     return <>
         <Container maxWidth="xl" className="headerContainer">
             <Container maxWidth="lg" className="headeritems">
                 <Grid container className="headerContainer" alignItems="center" spacing={1} justify="space-between" >
                     <Link to={{
                         pathname: "/",
+                        state: {
+                            darkState: props.theme
+                        }
                     }} style={{ textDecoration: 'none', color: "inherit" }}>
                         <Grid item className="logo">
                             <Typography variant="h5">devJobs</Typography>
@@ -25,6 +28,7 @@ const Header = (props) => {
                             </Grid>
                             <Grid item>
                                 <Switch
+                                    checked={props.theme}
                                     color="default"
                                     onChange={props.handleChange}
                                     inputProps={{ 'aria-label': 'primary checkbox' }} />

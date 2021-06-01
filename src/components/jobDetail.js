@@ -21,7 +21,7 @@ const JobDetails = (props) => {
     console.log(redirect)
 
     // Apply Theme
-    const [darkState, setDarkState] = useState(false);
+    const [darkState, setDarkState] = useState(props.location.state.darkState);
     let cardBgColor = darkState ? "#19212d" : "#ffffff";
     let paperBgColor = darkState ? "#131822" : "#f5f6f8";
     const useStyles = makeStyles({
@@ -59,7 +59,7 @@ const JobDetails = (props) => {
         {redirect ? <Redirect to="/" /> : <></>}
         <ThemeProvider theme={darkTheme}>
             <Paper className={classes.paperContainer}>
-                <Header handleChange={handleThemeChange} />
+                <Header handleChange={handleThemeChange} theme={darkState} />
                 <Container maxWidth="md">
                     <Card className={`${classes.cardColor} ${classes.cardRoot}`}>
                         <div className="jobHeaderCard">
